@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<section>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary md-4">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link fs-5" routerLink="studenthome" routerLinkActive="active">Home</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link fs-5" routerLink="profile" routerLinkActive="active">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fs-5" routerLink="jointeam" routerLinkActive="active">Join a Team</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link fs-5" (click)="openFriendRequestsModal()"><i class="fas fa-user-plus"></i></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link fs-5" href="#"><i class="fas fa-bell"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</section>
+
+<!-- Add this modal markup at the appropriate location -->
+<div id="friendRequestsModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Friend Requests</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Add the content for friend requests here -->
+        <!-- You can use Angular template syntax and bindings -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send Request</button>
+      </div>
+    </div>
+  </div>
+</div>

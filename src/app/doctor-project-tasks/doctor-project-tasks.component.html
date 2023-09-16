@@ -1,0 +1,81 @@
+<div class="container mt-3">
+<div class="card">
+  <div class="card-body">
+  <h3 class="text-center text-black mt-3">Tasks : <span class="text-primary">{{project.title}}</span> </h3>
+
+    <hr>
+    <div id="calendar"></div>
+  </div>
+</div>
+</div>
+<div id="eventModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+<div id="fileUploadModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tasks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fileInput">Choose File:</label>
+                    <input type="file" class="form-control-file" id="fileInput">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-action="submitFile">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Remove Modal -->
+<div id="removeModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this event?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-action="confirm">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Grade Modal -->
+<div id="gradeModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Task: <span id="gradeEventTitle"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="gradeEventGrade">Grade:</label>
+                    <input type="text" class="form-control" id="gradeEventGrade" placeholder="Enter grade">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" data-action="submitGrade" >Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

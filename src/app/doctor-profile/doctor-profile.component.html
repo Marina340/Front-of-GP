@@ -1,0 +1,166 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <!-- Card 1: User Information -->
+      <div class="card h-100 mt-1">
+        <div class="card-body">
+          <div class="d-flex justify-content-center align-items-center mr-3">
+            <!-- Use ngIf to conditionally display the icon or the uploaded image -->
+            <label for="imageUpload">
+              <div
+                class="upload-icon rounded-circle d-flex flex-column align-items-center justify-content-center bg-light border border-secondary"
+                style="width: 200px;height: 200px;" *ngIf="!userImage">
+                <i class="bi bi-cloud-upload"></i>
+              </div>
+              <div *ngIf="userImage">
+                <img [src]="userImage" class=" rounded-circle image-fluid" alt="User Image" width="200px"
+                  height="200px">
+              </div>
+            </label>
+            <input type="file" id="imageUpload" style="display: none;" (change)="onFileSelected($event)">
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">id: {{doctor.doctor_id}}</li>
+            <li class="list-group-item">Name: {{doctor.name}}</li>
+            <li class="list-group-item">Email: {{doctor.email}}</li>
+            <li class="list-group-item">Major: {{doctor.major}}</li>
+            <li class="list-group-item">Department: {{doctor.department}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card h-100 mt-1">
+        <div class="card-body">
+          <h5 class="card-title d-flex align-items-center justify-content-between mb-3">Experience
+            <button class="btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+              <i class="fas fa-plus"></i>
+            </button>
+          </h5>
+
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of items">
+              <span *ngIf="!item.isEditMode">{{ item.value }}</span>
+              <input type="text" class="form-control" [(ngModel)]="item.editedValue" *ngIf="item.isEditMode" />
+              <div>
+                <button class="btn btn-link btn-sm me-2" (click)="toggleEditMode(item)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <!-- Remove button -->
+                <button class="btn btn-link btn-sm" (click)="removeItem(item)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Display added ideas -->
+          <div *ngIf="canAddIdea">
+            <h5 class="card-title mt-3">Your Ideas</h5>
+            <div class="col-md-12 mt-2">
+              <div *ngFor="let idea of myideas" class="card mb-3">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="card-title">
+                      <i class="fas fa-lightbulb"></i> {{ idea?.title }}
+                    </h6>
+                    <div>
+                      <button class="btn btn-link me-2" (click)="openAddIdeaModal()">
+                        <i class="fas fa-info-circle"></i>
+                      </button>
+                      <button class="btn btn-link" (click)="deleteIdea()">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary col-12" (click)="openAddIdeaModal()">Add Idea</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalTitle">Add Experience</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" [(ngModel)]="newSkill" placeholder="Enter skill">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addSkill()">Save</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Idea Modal -->
+<div class="modal fade" id="addIdeaModal" tabindex="-1" role="dialog" aria-labelledby="addIdeaModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addIdeaModalLabel">Add Idea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="title">Idea Title:</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="newIdea.title"
+              [ngModelOptions]="{ standalone: true }">
+          </div>
+          <div class="form-group">
+            <label for="ideaDescription">Idea Description:</label>
+            <textarea class="form-control" id="ideaDescription" rows="3" [(ngModel)]="newIdea.ideaDescription"
+              [ngModelOptions]="{ standalone: true }"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="technology">Technology:</label>
+            <input type="text" class="form-control" id="technology" [(ngModel)]="newIdea.technology"
+              [ngModelOptions]="{ standalone: true }">
+          </div>
+          <div class="form-group">
+            <label for="fileUpload">Upload File (optional):</label>
+            <input type="file" class="form-control-file" id="fileUpload">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addIdea()">Add Idea</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- View Idea Modal -->
+<div class="modal fade" id="viewIdeaModal" tabindex="-1" role="dialog" aria-labelledby="viewIdeaModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="viewIdeaModalLabel">{{ selectedIdea?.title }}</h5> -->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- <div class="modal-body">
+        <p>{{ selectedIdea?.ideaDescription }}</p>
+        <p>Doctor: {{ selectedIdea?.doctorName }}</p>
+        <p>Technology: {{ selectedIdea?.technology }}</p>
+        <p>File: {{ selectedIdea?.file ? selectedIdea.file.name : 'No file uploaded' }}</p>
+      </div> -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
